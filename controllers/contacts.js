@@ -3,7 +3,7 @@ const { Contact } = require('../models/contact');
 const { HttpError } = require('../routes/api/helpers/index');
 
 const listContacts = async (req, res, next) => {
-  const result = await Contact.find();
+  const result = await Contact.find({});
   res.json({
     status: 'success',
     code: 200,
