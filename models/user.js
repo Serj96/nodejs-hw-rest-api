@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
-const { handleSchemaValidationErrors } = require('../routes/api/helpers');
+// const { handleSchemaValidationErrors } = require('../routes/api/helpers');
 
 const userSchema = new Schema({
   password: {
@@ -38,7 +38,7 @@ const userSchema = new Schema({
 //   addSchema,
 //   updateFavoritSchema,
 // };
-const User = model('User', userSchema);
+const User = model('user', userSchema);
 
 module.exports = {
   User,
