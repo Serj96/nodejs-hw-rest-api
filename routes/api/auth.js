@@ -2,7 +2,7 @@ const express = require('express');
 
 const { ctrlWrapper } = require('./helpers/index');
 const { validateBody, auth } = require('../../middlewares/index');
-const { auth: ctrl } = require('../../controllers/index');
+const { auth: ctrl } = require('../../controllers/auth/index');
 const { joiSignupSchema, joiLoginSchema } = require('../../models/user');
 const router = express.Router();
 

@@ -1,10 +1,9 @@
 const express = require('express');
 
-const { restart } = require('nodemon');
 
 const router = express.Router();
 
-const ctrl = require('../../controllers/users');
+const ctrl = require('../../controllers/auth/index');
 
 const { ctrlWrapper } = require('../../routes/api/helpers/index');
 
