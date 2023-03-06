@@ -1,26 +1,19 @@
 const express = require('express');
 
-const { restart } = require('nodemon');
-
+const { ctrlWrapper } = require('./helpers/index');
+const { validateBody, auth } = require('../../middlewares/index');
+const { auth: ctrl } = require('../../controllers/index');
+const { joiSignupSchema, joiLoginSchema } = require('../../models/user');
 const router = express.Router();
 
-const {
-  registerController,
-  loginController,
-} = require('../../controllers/contacts');
+router.post('/signup', validateBody(joiSignupSchema), ctrlWrapper(ctrl.signup));
 
-const { ctrlWrapper } = require('../../routes/api/helpers/index');
+router.post('/login', validateBody(joiLoginSchema), ctrlWrapper(ctrl.login));
 
-const { validateBody, validateParams } = require('../../middlewares');
+router.get('/current', auth, ctrlWrapper(ctrl.getCurrent));
 
-const { schemas } = require('../../models/contact');
+router.get('/logout', auth, ctrlWrapper(ctrl.logout));
 
-router.post('/register', ctrlWrapper(registerController));
+router.patch('/', ctrlWrapper(ctrl.updateSubscription));
 
-router.post('/login', validateParams, ctrlWrapper(loginController));
-
-
-
-
-
-module.exports = {auth: router}
+module.exports = router;
