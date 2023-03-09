@@ -2,7 +2,7 @@ const { User } = require('../../models/user');
 const {HttpError} = require('../../routes/api/helpers');
 
 const updateSubscription = async (req, res, next) => {
-  const { _id } = req.user;
+  const { _id, email} = req.user;
   const result = await User.findByIdAndUpdate(_id, req.body, {
     new: true,
   });
