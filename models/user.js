@@ -2,7 +2,6 @@ const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 
-// const { handleSchemaValidationErrors } = require('../routes/api/helpers');
 
 const userSchema = new Schema(
   {
