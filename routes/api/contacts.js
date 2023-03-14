@@ -3,7 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const ctrl = require('../../controllers/auth/index');
+const ctrl = require('../../controllers/contacts');
 
 const { ctrlWrapper } = require('../../routes/api/helpers/index');
 
