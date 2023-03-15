@@ -6,8 +6,9 @@ const { User } = require('../models/user');
 const { SECRET_KEY } = process.env;
 
 const auth = async (req, res, next) => {
-    const { authorization } = req.headers;
+    const { authorization = " "} = req.headers;
     const [bearer, token] = authorization.split('');
+    console.log(authorization);
 
     try {
         if (bearer !== "Bearer" || !token) {

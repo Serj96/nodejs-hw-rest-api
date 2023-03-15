@@ -2,6 +2,7 @@ const { Unauthorized } = require('http-errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 const { User } = require('../../models/user');
 
 const { SECRET_KEY } = process.env;
@@ -29,7 +30,6 @@ res.json({
     token,
     user: {
       email,
-      subscription: user.subscription,
     },
   },
 });
