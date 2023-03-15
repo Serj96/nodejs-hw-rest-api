@@ -1,10 +1,12 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const gravatar = require('gravatar');
 
 
 const userSchema = new Schema(
   {
+    
     password: {
       type: String,
       required: [true, 'Set password for user'],
@@ -19,7 +21,14 @@ const userSchema = new Schema(
       enum: ['starter', 'pro', 'business'],
       default: 'starter',
     },
-    token: String,
+    token: {
+      type: String,
+      default: ""
+    },
+    avatarURL: {
+      type: String,
+      required: true
+    }
   },
   { versionKey: false, timestamps: true }
 );
