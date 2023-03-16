@@ -1,22 +1,22 @@
 const { Conflict } = require('http-errors');
 const { User } = require('../../models/user');
 const bcrypt = require('bcryptjs');
+const gravatar = require('gravatar');
 
 const signup = async (req, res) => {
-  const { email, password, subscription } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user) {
     throw new Conflict(`409, Email ${email} in use`);
   }
-    
- // метод для перевірки пароля
 
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  const avatarURL = gravatar.url(email);
 
   const result = await User.create({
-    email,
+    ...req.body,
     password: hashPassword,
-    subscription,
+    avatarURL,
   });
 
   res.status(201).json({
@@ -24,9 +24,8 @@ const signup = async (req, res) => {
     code: 201,
     data: {
       user: {
-        email: email,
-        subscription: subscription,
-        password: password,
+        email: result.email,
+        password: result.password,
       },
     },
   });

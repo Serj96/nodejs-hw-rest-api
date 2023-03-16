@@ -14,33 +14,36 @@ const userSchema = new Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
-    subscription: {
+    token: {
       type: String,
-      enum: ['starter', 'pro', 'business'],
-      default: 'starter',
+      default: '',
     },
-    token: String,
+    avatarURL: {
+      type: String,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
+
 
 userSchema.methods.compare = password => {
   return bcrypt.compareSync(this.password);
 };
 
 const joiSignupSchema = Joi.object({
-  password: Joi.string().required(),
+  name: Joi.string().required(),
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     .required(),
-  subscription: Joi.string().required(),
+  password: Joi.string().min(6).required(),
 });
 
 const joiLoginSchema = Joi.object({
-  password: Joi.string().required(),
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     .required(),
+  password: Joi.string().min(6).required(),
 });
 
 const User = model('user', userSchema);
