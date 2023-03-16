@@ -9,11 +9,9 @@ const signup = async (req, res) => {
   if (user) {
     throw new Conflict(`409, Email ${email} in use`);
   }
-    
-
 
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  const avatarURL = gravatar.url(email)
+  const avatarURL = gravatar.url(email);
 
   const result = await User.create({
     ...req.body,

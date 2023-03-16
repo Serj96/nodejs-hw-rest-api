@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 
 // const {handleSchemaValidationErrors} = require('../routes/api/helpers/index')
 
-
 const userSchema = new Schema(
   {
     password: {
