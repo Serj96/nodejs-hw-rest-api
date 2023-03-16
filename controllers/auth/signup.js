@@ -26,6 +26,7 @@ const signup = async (req, res) => {
       user: {
         email: result.email,
         password: result.password,
+        avatarURL: result.avatarURL,
       },
     },
   });
