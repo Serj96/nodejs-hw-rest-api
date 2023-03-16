@@ -2,7 +2,6 @@ const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 
-// const {handleSchemaValidationErrors} = require('../routes/api/helpers/index')
 
 const userSchema = new Schema(
   {
@@ -27,7 +26,6 @@ const userSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-// userSchema.post('save', handleSchemaValidationErrors);
 
 userSchema.methods.compare = password => {
   return bcrypt.compareSync(this.password);
