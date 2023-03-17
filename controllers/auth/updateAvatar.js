@@ -6,6 +6,7 @@ const { HttpError } = require('http-errors');
 const avatarDir = path.join(__dirname, '../../', 'public', 'avatars');
 
 const updateAvatar = async (req, res) => {
+  console.log(req.file)
   const { path: tempUpload, originalname } = req.file;
   const { _id, email } = req.user;
   const imageName = `${_id}_${originalname}`;
