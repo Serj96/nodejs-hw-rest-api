@@ -1,8 +1,8 @@
 const { Conflict } = require('http-errors');
 const { User } = require('../../models/user');
 const bcrypt = require('bcryptjs');
-const gravatar = require('gravatar');
-var Jimp = require('jimp');
+const gravatar = require('gravatar')
+const Jimp = require('jimp');
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
