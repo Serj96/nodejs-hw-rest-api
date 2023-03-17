@@ -2,6 +2,7 @@ const { Conflict } = require('http-errors');
 const { User } = require('../../models/user');
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
+var Jimp = require('jimp');
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -12,11 +13,20 @@ const signup = async (req, res) => {
 
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   const avatarURL = gravatar.url(email);
+  const avatarSize = Jimp.read(avatarURL)
+    .then(avatar  => {
+      return avatar
+        .resize(250, 250) 
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
 
   const result = await User.create({
     ...req.body,
     password: hashPassword,
-    avatarURL,
+    avatarSize,
   });
 
   res.status(201).json({
@@ -26,7 +36,7 @@ const signup = async (req, res) => {
       user: {
         email: result.email,
         password: result.password,
-        avatarURL: result.avatarURL,
+        avatarURL: result.avatarSize,
       },
     },
   });
