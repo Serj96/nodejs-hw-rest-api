@@ -2,7 +2,9 @@ const { Conflict } = require('http-errors');
 const { User } = require('../../models/user');
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
-var Jimp = require('jimp');
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -11,22 +13,25 @@ const signup = async (req, res) => {
     throw new Conflict(`409, Email ${email} in use`);
   }
 
+  const msg = {
+    to: email,
+    from: 'nodehw@meta.ua', // Use the email address or domain you verified above
+    subject: 'Thank you for sign up!',
+    text: 'and easy to do anywhere, even with Node.js',
+    html: '<h1>and easy to do anywhere, even with Node.js</h1>',
+  };
+
+  await sgMail.send(msg);
+
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  const avatarURL = gravatar.url(email);
-  const avatarSize = Jimp.read(avatarURL)
-    .then(avatar  => {
-      return avatar
-        .resize(250, 250) 
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  const avatarURL = gravatar.url(email, { s: '200' });
+  
 
 
   const result = await User.create({
     ...req.body,
     password: hashPassword,
-    avatarSize,
+    avatarURL,
   });
 
   res.status(201).json({
@@ -36,7 +41,7 @@ const signup = async (req, res) => {
       user: {
         email: result.email,
         password: result.password,
-        avatarURL: result.avatarSize,
+        avatarURL: result.avatarURL,
       },
     },
   });

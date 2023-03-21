@@ -28,4 +28,6 @@ router.patch(
   ctrlWrapper(updateAvatar)
 );
 
+// router.get('/verify')
+
 module.exports = router;
