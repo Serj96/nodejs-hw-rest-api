@@ -24,7 +24,7 @@ const signup = async (req, res) => {
   await sgMail.send(msg);
 
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  const avatarURL = gravatar.url(email, { s: '200' });
+  const avatarURL = gravatar.url(email, { s: '250' });
   
 
 
