@@ -9,11 +9,14 @@ const {
   logout,
   signup,
   updateAvatar,
+  verifyEmail 
 } = require('../../controllers/auth/index');
 const { joiSignupSchema, joiLoginSchema } = require('../../models/user');
 const router = express.Router();
 
 router.post('/signup', validateBody(joiSignupSchema), ctrlWrapper(signup));
+
+router.get('/verify/:verificationCode',  ctrlWrapper(verifyEmail);
 
 router.post('/login', validateBody(joiLoginSchema), ctrlWrapper(login));
 
@@ -28,6 +31,6 @@ router.patch(
   ctrlWrapper(updateAvatar)
 );
 
-// router.get('/verify')
+  
 
 module.exports = router;
