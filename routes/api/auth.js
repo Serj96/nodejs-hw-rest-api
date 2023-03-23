@@ -9,11 +9,21 @@ const {
   logout,
   signup,
   updateAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 } = require('../../controllers/auth/index');
-const { joiSignupSchema, joiLoginSchema } = require('../../models/user');
+const {
+  joiSignupSchema,
+  joiLoginSchema,
+  joiEmailSchema,
+} = require('../../models/user');
 const router = express.Router();
 
 router.post('/signup', validateBody(joiSignupSchema), ctrlWrapper(signup));
+
+router.get('/verify/:verificationCode', ctrlWrapper(verifyEmail));
+
+router.post('/verify', validateBody(joiEmailSchema), ctrlWrapper(resendVerifyEmail));
 
 router.post('/login', validateBody(joiLoginSchema), ctrlWrapper(login));
 
@@ -27,5 +37,7 @@ router.patch(
   upload.single('avatar'),
   ctrlWrapper(updateAvatar)
 );
+
+  
 
 module.exports = router;
