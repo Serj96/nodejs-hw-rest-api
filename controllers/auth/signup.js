@@ -3,9 +3,11 @@ const { Conflict } = require('http-errors');
 const { User } = require('../../models/user');
 const { sendEmail } = require('../../routes/api/helpers/index');
 const bcrypt = require('bcryptjs');
+
 const gravatar = require('gravatar');
 
 const { BASE_URL } = process.env;
+
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
